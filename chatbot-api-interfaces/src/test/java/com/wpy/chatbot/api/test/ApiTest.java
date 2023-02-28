@@ -58,4 +58,24 @@ public class ApiTest {
         }
     }
 
+    @Test
+    public void test_chatGpt() throws IOException {
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+
+        HttpPost post = new HttpPost("https://api.openai.com/v1/completions");
+        post.addHeader("Content-Type","application/json");
+        post.addHeader("Authorization","Bearer ");
+
+        String paramJson = "";
+
+        StringEntity entity = new StringEntity(paramJson, ContentType.create("text/json","UTF-8"));
+        post.setEntity(entity);
+
+        CloseableHttpResponse response = httpClient.execute(post);
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            String res = EntityUtils.toString(response.getEntity());
+            System.out.println(res);
+        }
+    }
+
 }
